@@ -1,11 +1,12 @@
 #include "start_animation.h"
 #include "timer.h"
 #include "ui.h"
+#include <string.h>
 
 // 动画持续时间
 SoftwareTimer duration_timer;
 // 帧时间
-SoftwareTiemr frame_timer;
+SoftwareTimer frame_timer;
 // 当前动画状态
 int status;
 
@@ -55,7 +56,7 @@ void start_animation_content(char *line1, char *line2) {
     sprintf(line1, "%c%c%c%cDIGITAL%c%c%c%c%c", c, c, c, c, c, c, c, c, c);
     sprintf(line2, "%c%c%c%c%cCLOCK%c%c%c%c%c%c", c, c, c, c, c, c, c, c, c, c, c);
     // 每过一帧时间状态切换
-    if (software_timer_expired(frame_timer)) {
+    if (software_timer_expired(&frame_timer)) {
         if (status == 8) {
             status = 0;
         }

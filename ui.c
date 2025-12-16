@@ -1,6 +1,5 @@
 #include "ui.h"
 #include "lcd.h"
-#include "config.h"
 #include "clock.h"
 #include "timer.h"
 #include "clock_interface.h"
@@ -37,9 +36,17 @@ void show_ui(void) {
         char line1[16], line2[16];
         // 获取当前界面显示内容
         switch(current_ui) {
-            // 时钟界面
+            // 开机动画
             case START_ANIMATION:
+                start_animation_content(line1, line2);
+                break;
+            // 时钟界面
+            case CLOCK_INTERFACE:
                 clock_interface_content(line1, line2);
+                break;
+            // 修改界面
+            case EDIT_CLOCK_INTERFACE:
+                edit_clock_interface_content(line1, line2);
                 break;
             default:
                 clock_interface_content(line1, line2);
