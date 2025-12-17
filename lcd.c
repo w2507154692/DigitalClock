@@ -37,7 +37,6 @@ void lcd_init(void) {
     lcd_write_cmd(0x01); // 清屏
     usleep(2000);
     lcd_write_cmd(0x80); // 设置DDRAM地址为0
-    usleep(2000);
 }
 
 // LCD打印一串字符

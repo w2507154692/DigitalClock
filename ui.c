@@ -14,7 +14,7 @@ SoftwareTimer ui_timer;
 // ui组件初始化
 void ui_init(void) {
     // 10ms刷新一次
-    software_timer_init(&ui_timer, 10);
+    software_timer_init(&ui_timer, 100);
 }
 
 // 切换当前ui

@@ -2,6 +2,7 @@
 #include "lcd.h"
 #include "clock.h"
 #include "ui.h"
+#include "singer.h"
 
 // 各组件初始化
 void init(void) {
@@ -13,6 +14,8 @@ void init(void) {
     ui_init();
     // 初始化LCD
     lcd_init();
+    // 初始化发声模块
+    singer_init();
     // 开机动画
     change_ui(START_ANIMATION);
 }
@@ -23,6 +26,7 @@ int main() {
     while(1) {
         show_ui();
         clock_process();
+        sing();
     }
     
     return 0;

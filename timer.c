@@ -1,6 +1,7 @@
 #include "timer.h"
 #include "altera_avalon_timer_regs.h"
 #include "system.h" 
+#include <stdbool.h>
 #include <stddef.h>
 
 volatile unsigned int global_timer = 0;
@@ -13,7 +14,7 @@ void timer_disruption(void *context) {
 
 void global_timer_init(void) {
     // 50MHz -> 1000Hz
-    IOWR_ALTERA_AVALON_TIMER_PERIODL(TIMER_BASE, 50000); // 低位
+    IOWR_ALTERA_AVALON_TIMER_PERIODL(TIMER_BASE, 5000); // 低位
     IOWR_ALTERA_AVALON_TIMER_PERIODH(TIMER_BASE, 0); // 高位
     
     IOWR_ALTERA_AVALON_TIMER_CONTROL(

@@ -48,7 +48,7 @@ int days_in_month(int year, int month) {
 
 // 初始化时间
 void clock_init(void) {
-    software_timer_init(&clock_timer, 1000);
+    software_timer_init(&clock_timer, 10000);
     current_time = get_system_time();
 }
 

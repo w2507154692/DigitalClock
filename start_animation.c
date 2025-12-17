@@ -12,9 +12,9 @@ int status;
 
 void start_animation_init(void) {
     // 动画持续3s
-    software_timer_init(&duration_timer, 3000);
+    software_timer_init(&duration_timer, 30000);
     // 帧时间0.2s
-    software_timer_init(&frame_timer, 200);
+    software_timer_init(&frame_timer, 2000);
     // 当前状态
     status = 0;
 }

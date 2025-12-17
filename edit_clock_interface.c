@@ -28,7 +28,7 @@ Time temp_time;
 
 void edit_clock_interface_init(void) {
     // 0.7s闪烁一次
-    software_timer_init(&twinkle_timer, 700);
+    software_timer_init(&twinkle_timer, 7000);
     // 当前光标位置为年份最高位
     edit_clock_interface_cursor = YEAR4;
     current_status = 0;
@@ -36,6 +36,7 @@ void edit_clock_interface_init(void) {
     temp_time = current_time;
 }
 
+// 光标左移
 void edit_clock_interface_move_cursor_left(void) {
     if (edit_clock_interface_cursor == YEAR4)
         edit_clock_interface_cursor = SECOND1;
@@ -43,6 +44,7 @@ void edit_clock_interface_move_cursor_left(void) {
         edit_clock_interface_cursor--;
 }
 
+// 光标右移
 void edit_clock_interface_move_cursor_right(void) {
     if (edit_clock_interface_cursor == SECOND1)
         edit_clock_interface_cursor = YEAR4;
