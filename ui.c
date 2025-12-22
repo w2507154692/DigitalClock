@@ -4,6 +4,7 @@
 #include "timer.h"
 #include "clock_interface.h"
 #include "start_animation.h"
+#include "key.h"
 #include <stdio.h>
 
 // 当前是哪一个界面
@@ -25,6 +26,14 @@ void change_ui(int ui) {
             start_animation_init();
             break;
         case CLOCK_INTERFACE:
+            break;
+        case EDIT_CLOCK_INTERFACE:
+            edit_clock_interface_init();
+            break;
+        case EDIT_INVALID_ANIMATION:
+            edit_invalid_animation_init();
+        case EDIT_SUCCESS_ANIMATION:
+            edit_success_animation_init();
             break;
         default:
             break;
@@ -48,11 +57,32 @@ void show_ui(void) {
             case EDIT_CLOCK_INTERFACE:
                 edit_clock_interface_content(line1, line2);
                 break;
+            // 修改非法动画
+            case EDIT_INVALID_ANIMATION:
+                edit_invalid_animation_content(line1, line2);
+                break;
+            // 修改成功动画
+            case EDIT_SUCCESS_ANIMATION:
+                edit_success_animation_content(line1, line2);
+                break;
             default:
                 clock_interface_content(line1, line2);
                 break;
         }
         // 显示
-        
+        lcd_show_text(line1, line2);
+    }
+}
+
+void ui_key(int key) {
+    switch(current_ui) {
+        case CLOCK_INTERFACE:
+            clock_interface_key(key);
+            break;
+        case EDIT_CLOCK_INTERFACE:
+            edit_clock_interface_key(key);
+            break;
+        default:
+            break;
     }
 }

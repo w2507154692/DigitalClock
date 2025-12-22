@@ -1,7 +1,6 @@
 #include "clock.h"
 #include "timer.h"
 #include <time.h>
-#include <stdbool.h>
 
 static SoftwareTimer clock_timer;
 Time current_time;
@@ -88,4 +87,31 @@ void clock_process(void) {
         }
     }
 }
-    
+
+// 校验时间是否合法，合法返回1，不合法返回0
+bool is_time_valid(Time t) {
+    // 年份限制
+    if (t.year < 1900 || t.year > 2099) return false;
+    // 月份 1-12
+    if (t.month < 1 || t.month > 12) return false;
+    // 年闰年判断
+    int is_leap = 0;
+    if ((t.year % 4 == 0 && t.year % 100 != 0) || (t.year % 400 == 0)) is_leap = 1;
+    // 每月天数
+    int mdays = 31;
+    switch (t.month) {
+        case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+            mdays = 31; break;
+        case 4: case 6: case 9: case 11:
+            mdays = 30; break;
+        case 2:
+            mdays = is_leap ? 29 : 28; break;
+        default:
+            return false;
+    }
+    if (t.day < 1 || t.day > mdays) return false;
+    if (t.hour < 0 || t.hour > 23) return false;
+    if (t.minute < 0 || t.minute > 59) return false;
+    if (t.second < 0 || t.second > 59) return false;
+    return true;
+}

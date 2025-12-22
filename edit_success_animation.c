@@ -1,4 +1,4 @@
-#include "start_animation.h"
+#include "edit_invalid_animation.h"
 #include "timer.h"
 #include "ui.h"
 #include <string.h>
@@ -10,7 +10,7 @@ static SoftwareTimer frame_timer;
 // 当前动画状态
 static int status;
 
-void start_animation_init(void) {
+void edit_success_animation_init(void) {
     // 动画持续3s
     software_timer_init(&duration_timer, 30000);
     // 帧时间0.5s
@@ -19,45 +19,24 @@ void start_animation_init(void) {
     status = 0;
 }
 
-void start_animation_content(char *line1, char *line2) { 
+void edit_success_animation_content(char *line1, char *line2) { 
     char c;
     switch(status) {
         case 0:
-            c = '-';
-            break;
-        case 1:
-            c = '+';
-            break;
-        case 2:
-            c = '#';
-            break;
-        case 3:
-            c = '$';
-            break;
-        case 4:
-            c = '*';
-            break;
-        case 5:
-            c = 'x';
-            break;
-        case 6:
             c = 0x03; // 爱心 (custom char index 3)
             break;
-        case 7:
-            c = 0x7E; // 右箭头
-            break;
-        case 8:
-            c = 0x7F; // 左箭头
+        case 1:
+            c = 0x20; // 空格
             break;
         default:
-            c = '-';
+            c = 0x20;
             break;
     }
-    sprintf(line1, "%c%c%c DIGITAL %c%c%c%c", c, c, c, c, c, c, c, c, c);
-    sprintf(line2, "%c%c%c%c CLOCK %c%c%c%c%c", c, c, c, c, c, c, c, c, c, c, c);
+    sprintf(line1, "%c%c%c SUCCESS %c%c%c%c", c, c, c, c, c, c, c);
+    sprintf(line2, "%c%c%c%c%c EDIT %c%c%c%c%c", c, c, c, c, c, c, c, c, c, c);
     // 每过一帧时间状态切换
     if (software_timer_expired(&frame_timer)) {
-        if (status == 8) {
+        if (status == 1) {
             status = 0;
         }
         else
@@ -68,6 +47,3 @@ void start_animation_content(char *line1, char *line2) {
         change_ui(CLOCK_INTERFACE);
     }
 }
-        
-            
-            
